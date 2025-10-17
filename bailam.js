@@ -17,60 +17,50 @@ class SchoolSystem {
   }
 
 // Khởi tạo dữ liệu ban đầu
-    khoiTao(data = []) {
+    khoiTao = (data = []) => {
         this.danhSach = data;
         this.soLuongHocSinh = data.length;
-    }
+    };
 
 // Tự động thêm mã học sinh
-    themHocSinh(hocSinh) {
+    themHocSinh = (hocSinh) => {
         const nam = new Date().getFullYear();
         const maMoi = `ma${nam}${String(this.soLuongHocSinh + 1).padStart(3, "0")}`;
         hocSinh.maHS = maMoi;
         this.danhSach.push(hocSinh);
         this.soLuongHocSinh++;
         return maMoi;
-    }
+    };
 
 // Tìm kiếm học sinh theo mã
-    timHocSinh(maHS) {
+    timHocSinh = (maHS) => {
         return this.danhSach.find(hs => hs.maHS === maHS) || null;
-    }
-
- // Tìm học sinh theo tên (gõ tên cuối hoặc đầy đủ đều được)
-    timTheoTen(tenNhap) {
-        tenNhap = tenNhap.trim().toLowerCase();
-        return this.danhSach.filter(hs => {
-        const tenDayDu = hs.hoTen.toLowerCase();
-        const tenCuoi = tenDayDu.split(" ").pop(); // lấy tên cuối
-        return tenDayDu.includes(tenNhap) || tenCuoi === tenNhap;
-        });
-    }
+    };
 
 // Cập nhật thông tin học sinh
-    capNhatThongTin(maHS, duLieuMoi) {
+    capNhatThongTin = (maHS, duLieuMoi) => {
         const hs = this.timHocSinh(maHS);
         if (!hs) return false;
         delete duLieuMoi.maHS; // không cho cập nhật mã
         Object.assign(hs, duLieuMoi);
         return true;
-    }
+    };
 
 // Xóa học sinh theo mã
-    xoaHocSinh(maHS) {
+    xoaHocSinh = (maHS) => {
         const index = this.danhSach.findIndex(hs => hs.maHS === maHS);
         if (index === -1) return false;
         this.danhSach.splice(index, 1);
         return true;
-    }
+    };
 
 // Lấy danh sách học sinh theo lớp
-    layDanhSachTheoLop(tenLop) {
+    layDanhSachTheoLop = (tenLop) => {
         return this.danhSach.filter(hs => hs.lopHoc === tenLop);
-    }
+    };
 
 // Thống kê học lực
-    thongKeHocLuc() {
+    thongKeHocLuc = () => {
         const thongKe = {
         "Xuất Sắc": 0,
         "Giỏi": 0,
@@ -90,30 +80,11 @@ class SchoolSystem {
     }
 
     // Xắp xếp học sinh theo điểm trung bình
-    sapXepTheoDiem(kieuSapXep = "tang") {
-        const dsSapXep = [...this.danhSach].sort((a, b) => 
-        kieuSapXep === "tang" ? a.diemTB - b.diemTB : b.diemTB - a.diemTB
+    sapXepTheoDiem = (kieuSapXep = "tang") => {
+        return [...this.danhSach].sort((a, b) =>
+            kieuSapXep === "tang" ? a.diemTB - b.diemTB : b.diemTB - a.diemTB
         );
-        return dsSapXep;
-    }
-
-// Thống kê hạnh kiểm
-    thongKeHanhKiem() {
-        const thongKe = {};
-        this.danhSach.forEach(hs => {
-        const hk = hs.hanhKiem || "Chưa có";
-        thongKe[hk] = (thongKe[hk] || 0) + 1;
-        });
-        return thongKe;
-    }
-
-// Lấy danh sách học sinh theo hạnh kiểm
-    layDanhSachTheoHanhKiem(hanhKiem) {
-        hanhKiem = hanhKiem.trim().toLowerCase();
-        return this.danhSach.filter(
-        hs => hs.hanhKiem && hs.hanhKiem.toLowerCase() === hanhKiem
-        );
-    }
+    };
 }
 
 // ==========================
@@ -155,9 +126,3 @@ console.log("Thống kê học lực:", truong.thongKeHocLuc());
 
 // Sắp xếp theo điểm giảm dần
 console.log("Sắp xếp giam:", truong.sapXepTheoDiem("giam"));
-
-// Thống kê hạnh kiểm
-console.log("Thống kê hạnh kiểm:", truong.thongKeHanhKiem());
-
-// Lấy danh sách học sinh có hạnh kiểm "Khá"
-console.log("Danh sách hạnh kiểm Khá:", truong.layDanhSachTheoHanhKiem("Khá"));
