@@ -22,19 +22,6 @@ class SchoolSystem {
         this.soLuongHocSinh = data.length;
     }
 
-// Thêm học sinh qua prompt
-    nhapHocSinh() {
-        const hoTen = prompt("Nhập họ tên học sinh:");
-        const lopHoc = prompt("Nhập lớp học:");
-        const diemTB = prompt("Nhập điểm trung bình:");
-        const hanhKiem = prompt("Nhập hạnh kiểm (Tốt/Khá/Trung bình/Kém):");
-
-        const hsMoi = new hocSinh("", hoTen, lopHoc, diemTB, hanhKiem);
-        const maMoi = this.themHocSinh(hsMoi);
-
-        alert(`Thêm học sinh thành công! Mã học sinh: ${maMoi}`);
-    }
-
 // Tự động thêm mã học sinh
     themHocSinh(hocSinh) {
         const nam = new Date().getFullYear();
