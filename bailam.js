@@ -69,15 +69,26 @@ class SchoolSystem {
         "Kém": 0
         };
 
-    this.danhSach.forEach(hs => {
-        if (hs.diemTB >= 9) thongKe["Xuất Sắc"]++;
-        else if (hs.diemTB >= 8) thongKe["Giỏi"]++;
-        else if (hs.diemTB >= 7) thongKe["Khá"]++;
-        else if (hs.diemTB >= 5) thongKe["Trung Bình"]++;
-        else thongKe["Kém"]++;
-        });
-        return thongKe;
+for (const hs of this.danhSach) {
+        if (hs.diemTB >= 9) {
+            thongKe["Xuất Sắc"]++;
+        }
+        else if (hs.diemTB >= 8) {
+            thongKe["Giỏi"]++;
+        }
+        else if (hs.diemTB >= 7) {
+            thongKe["Khá"]++;
+        }
+        else if (hs.diemTB >= 5) {
+            thongKe["Trung Bình"]++;
+        }
+        else {
+            thongKe["Kém"]++;
+        }
     }
+
+    return thongKe;
+    };
 
     // Xắp xếp học sinh theo điểm trung bình
     sapXepTheoDiem = (kieuSapXep = "tang") => {
@@ -116,7 +127,7 @@ console.log("Tìm học sinh:", truong.timHocSinh("ma2025001"));
 truong.capNhatThongTin(maMoi, { diemTB: 8.1, hanhKiem: "Tốt" });
 
 // Xóa học sinh
-truong.xoaHocSinh("ma2025002");
+//truong.xoaHocSinh("ma2025002");
 
 // Lọc danh sách theo lớp
 console.log("Danh sách lớp 10A1:", truong.layDanhSachTheoLop("10A1"));
